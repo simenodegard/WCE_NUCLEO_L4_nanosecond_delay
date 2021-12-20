@@ -1,0 +1,12 @@
+main.c:77:5:main	16	static,ignoring_inline_asm
+main.c:165:6:SystemClock_Config	248	static
+main.c:222:13:MX_LPUART1_UART_Init	8	static
+main.c:270:13:MX_USART3_UART_Init	8	static
+main.c:318:13:MX_TIM1_Init	40	static
+main.c:365:13:MX_TIM2_Init	40	static
+main.c:410:13:MX_GPIO_Init	56	static
+main.c:460:13:stopwatch_reset	4	static
+main.c:469:17:stopwatch_getticks	4	static
+main.c:474:13:stopwatch_delay	24	static
+main.c:484:6:delay	16	static
+main.c:496:6:Error_Handler	4	static,ignoring_inline_asm
