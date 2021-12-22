@@ -62,6 +62,7 @@ static void stopwatch_reset(void);
 static uint32_t stopwatch_getticks();
 static void stopwatch_delay(uint32_t ticks);
 void delay (uint16_t delay);
+void delay_10_nsec (uint16_t t);
 
 /* USER CODE END PFP */
 
@@ -119,8 +120,9 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim2);
+  HAL_TIM_Base_Start(&htim1);
   int timeDiff = 0;
+  int counter = 0;
 
   volatile uint32_t* ODR_B = (volatile uint32_t*) 0x48000014;
   //enables ART accelarator prefetch to flash
@@ -133,25 +135,121 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	stopwatch_reset();
-//	STOPWATCH_START;
-//	stopwatch_delay(1); // 48k ticks is 1ms for 48MHz core -
-//	STOPWATCH_STOP;
-	//delay(1); //750ns
 
-	/*---T = 208 ns ---- */
-//	*ODR_B |= (1<<5);   // set pin high, this turns the LED "off"
-//	__ASM volatile ("nop");
-//	*ODR_B &= ~(1<<5);  // set pin low, this turns the LED "on"
+	  /* [0] ---- 10010000 ---- */
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  /* [1] ---- 11000001 ---- */
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  /* [2] ---- 00101010 ---- */
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  /* [3] ---- 10010010 ---- */
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  /* [4] ---- 00000101 ---- */
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  /* [5] ---- 00101000 ---- */
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<21);
 
-	/*---T = 158.4 ns = 6.3 MHz----  */
-	GPIOA->ODR |= 1<<5; // Set the Pin PA5
-	__ASM volatile ("nop");
-	GPIOA->ODR &= ~(1<<5); // Reset the Pin PA5
+	  __ASM volatile ("nop");
+	  GPIOA->BSRR =(1<<5);
 
-	/*---T = 183.2 ns ---- */
-//	GPIOA -> ODR ^= GPIO_PIN_5;
-//	__ASM volatile ("nop");
+/* ---- 90.5 us delay ---- */
+	while(counter <= 345) // T = 179*2 for cyclic check
+	{
+		__ASM volatile ("nop");
+		counter++;
+	}
+	counter = 0;
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -171,7 +269,7 @@ void SystemClock_Config(void)
 
   /** Configure the main internal regulator output voltage
   */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1_BOOST) != HAL_OK)
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -184,7 +282,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 30;
+  RCC_OscInitStruct.PLL.PLLN = 12;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -201,7 +299,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -422,7 +520,7 @@ static void MX_GPIO_Init(void)
   HAL_PWREx_EnableVddIO2();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
@@ -435,6 +533,13 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA5 */
   GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA6 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -458,6 +563,13 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void delay_10_nsec (uint16_t t)
+{
+	__HAL_TIM_SET_COUNTER(&htim1,0);  // set the counter value a 0
+	while (__HAL_TIM_GET_COUNTER(&htim1) < t);  // wait for the counter to reach the us input in the parameter
+}
+
 static void stopwatch_reset(void)
 {
     /* Enable DWT */
