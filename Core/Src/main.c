@@ -135,6 +135,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  __ASM volatile ("nop");
+	  __ASM volatile ("nop");
 
 	  /* [0] ---- 10010000 ---- */
 	  GPIOA->BSRR =(1<<5);
@@ -242,7 +244,7 @@ int main(void)
 	  GPIOA->BSRR =(1<<5);
 
 /* ---- 90.5 us delay ---- */
-	while(counter <= 345) // T = 179*2 for cyclic check
+	while(counter <= 344) // T = 179*2 for cyclic check
 	{
 		__ASM volatile ("nop");
 		counter++;
@@ -269,7 +271,7 @@ void SystemClock_Config(void)
 
   /** Configure the main internal regulator output voltage
   */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1_BOOST) != HAL_OK)
   {
     Error_Handler();
   }
@@ -556,9 +558,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 
 }
 
